@@ -333,9 +333,13 @@ const runGraph = function (data, id, colors) {
   return myChart;
 };
 
-myChart = runGraph([zelleBalance, binanceBalance, cashBalance], "myChart", [
-  "#7123D4",
-  "#F1BB13",
-  "#6a8649",
-]);
+myChart = runGraph(
+  [
+    JSON.parse(localStorage.getItem("Zelle")),
+    JSON.parse(localStorage.getItem("Binance")),
+    JSON.parse(localStorage.getItem("Cash")),
+  ],
+  "myChart",
+  ["#7123D4", "#F1BB13", "#6a8649"]
+);
 // myChart2 = runGraph(, "myChart2");
