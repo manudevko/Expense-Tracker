@@ -2,9 +2,11 @@ let balance;
 let zelleBalance;
 let binanceBalance;
 let cashBalance;
+let income;
+let expense;
 let transHistory;
-let myChart;
-let myChart2;
+let balanceDistChart;
+let incExpChart;
 
 //Transaction wrapper
 
@@ -35,6 +37,16 @@ const expButtonUI = document.querySelector(".add-expense");
 //Delete history buttons (not created yet at this point, will use a function to update them at the bottom)
 
 let deleteHistoryButtonsUI;
+
+//Charts wrappers to hide and unhide them
+
+const balanceChartUI = document.querySelector(".balanceChartWrapper");
+const incExpChartUI = document.querySelector(".incExpChartWrapper");
+
+//Charts buttons to unhide the clicked one and hide the rest
+
+const balanceChartBtn = document.querySelector(".balance-distribution-btn");
+const incExpChartBtn = document.querySelector(".income-expense-btn");
 
 //Create new transaction function
 
@@ -91,6 +103,8 @@ const loadLocalStorage = function () {
   zelleBalance = JSON.parse(localStorage.getItem("Zelle")) || 0;
   binanceBalance = JSON.parse(localStorage.getItem("Binance")) || 0;
   cashBalance = JSON.parse(localStorage.getItem("Cash")) || 0;
+  income = JSON.parse(localStorage.getItem("Income")) || 0;
+  expense = JSON.parse(localStorage.getItem("Expense")) || 0;
   transHistory = JSON.parse(localStorage.getItem("History")) || [];
 };
 
@@ -116,6 +130,8 @@ const saveLocalStorage = function () {
   localStorage.setItem("Zelle", JSON.stringify(zelleBalance));
   localStorage.setItem("Binance", JSON.stringify(binanceBalance));
   localStorage.setItem("Cash", JSON.stringify(cashBalance));
+  localStorage.setItem("Income", JSON.stringify(income));
+  localStorage.setItem("Expense", JSON.stringify(expense));
   localStorage.setItem("History", JSON.stringify(transHistory));
 };
 
@@ -148,6 +164,7 @@ const updateBalance = function (amount, type) {
 const addIncome = function (details, amount, date, platform) {
   const type = "income";
   amount = parseInt(amount);
+  income += amount;
   switch (platform) {
     case "Zelle":
       zelleBalance += amount;
@@ -172,6 +189,7 @@ const addIncome = function (details, amount, date, platform) {
 const addExpense = function (details, amount, date, platform) {
   const type = "expense";
   amount = parseInt(amount);
+  expense += amount;
   switch (platform) {
     case "Zelle":
       zelleBalance -= amount;
@@ -201,13 +219,23 @@ incButtonUI.addEventListener("click", function () {
     incPlatformUI.value
   );
 
-  //Re-renders the chart with new data
-  myChart.destroy();
-  myChart = runGraph([zelleBalance, binanceBalance, cashBalance], "myChart", [
-    "#7123D4",
-    "#F1BB13",
-    "#6a8649",
-  ]);
+  //Updates the balance distribution chart
+  balanceDistChart = updateChart(
+    balanceDistChart,
+    [zelleBalance, binanceBalance, cashBalance],
+    ["#7123D4", "#F1BB13", "#6a8649"],
+    "balanceDistChart"
+  );
+
+  //Updates the income and expenses chart
+
+  incExpChart = updateChart(
+    incExpChart,
+    [income, expense],
+    ["#22C55E", "#EF4444"],
+    "incExpChart"
+  );
+
   incDetailsUI.value = "";
   incAmountUI.value = "";
   incDateUI.value = "";
@@ -222,6 +250,15 @@ expButtonUI.addEventListener("click", function () {
     expAmountUI.value,
     expDateUI.value,
     expPlatformUI.value
+  );
+
+  //Updates the balance distribution chart
+  balanceDistChart = updateChart(
+    balanceDistChart,
+    [zelleBalance, binanceBalance, cashBalance],
+    ["#7123D4", "#F1BB13", "#6a8649"],
+    "balanceDistChart",
+    ["Zelle", "Binance", "Cash"]
   );
 
   expDetailsUI.value = "";
@@ -253,39 +290,37 @@ const addEventToDeleteButtons = function () {
           //If it's an income being deleted balance needs to be subtracted back
           if (transHistory[i].Type === "income") {
             //Checks which platform to subtract from
+            income -= transHistory[i].Amount;
+            balance -= transHistory[i].Amount;
             switch (transHistory[i].Platform) {
               case "Zelle":
                 zelleBalance -= transHistory[i].Amount;
-                balance -= transHistory[i].Amount;
                 updateBalanceUI();
                 break;
               case "Binance":
                 binanceBalance -= transHistory[i].Amount;
-                balance -= transHistory[i].Amount;
                 updateBalanceUI();
                 break;
               case "Cash":
                 cashBalance -= transHistory[i].Amount;
-                balance -= transHistory[i].Amount;
                 updateBalanceUI();
                 break;
             }
             //If it's an expense being deleted balance needs to be added back
           } else if (transHistory[i].Type === "expense") {
+            expense -= transHistory[i].Amount;
+            balance += transHistory[i].Amount;
             switch (transHistory[i].Platform) {
               case "Zelle":
                 zelleBalance += transHistory[i].Amount;
-                balance += transHistory[i].Amount;
                 updateBalanceUI();
                 break;
               case "Binance":
                 binanceBalance += transHistory[i].Amount;
-                balance += transHistory[i].Amount;
                 updateBalanceUI();
                 break;
               case "Cash":
                 cashBalance += transHistory[i].Amount;
-                balance += transHistory[i].Amount;
                 updateBalanceUI();
                 break;
             }
@@ -296,6 +331,23 @@ const addEventToDeleteButtons = function () {
           saveLocalStorage();
         }
       }
+      //Updates the balance distribution chart
+
+      balanceDistChart = updateChart(
+        balanceDistChart,
+        [zelleBalance, binanceBalance, cashBalance],
+        ["#7123D4", "#F1BB13", "#6a8649"],
+        "balanceDistChart",
+        ["Zelle", "Binance", "Cash"]
+      );
+      //Updates the income and expenses chart
+
+      incExpChart = updateChart(
+        incExpChart,
+        [income, expense],
+        ["#22C55E", "#EF4444"],
+        "incExpChart"
+      );
       //Updates the delete buttons after removing one
       updateDeleteButtons();
     });
@@ -310,10 +362,9 @@ addEventToDeleteButtons();
 const runGraph = function (data, id, colors) {
   const ctx = document.getElementById(id);
 
-  let myChart = new Chart(ctx, {
+  let balanceDistChart = new Chart(ctx, {
     type: "pie",
     data: {
-      labels: ["Zelle", "Binance", "Cash"],
       datasets: [
         {
           data: data,
@@ -330,16 +381,52 @@ const runGraph = function (data, id, colors) {
       },
     },
   });
-  return myChart;
+  return balanceDistChart;
 };
 
-myChart = runGraph(
+const updateChart = function (chart, data, colors, id) {
+  //Updates the distribution chart after destroying the current one
+  chart.destroy();
+  chart = runGraph(data, id, colors);
+  return chart;
+};
+
+// Balance distribution chart first run
+balanceDistChart = runGraph(
   [
     JSON.parse(localStorage.getItem("Zelle")),
     JSON.parse(localStorage.getItem("Binance")),
     JSON.parse(localStorage.getItem("Cash")),
   ],
-  "myChart",
+  "balanceDistChart",
   ["#7123D4", "#F1BB13", "#6a8649"]
 );
-// myChart2 = runGraph(, "myChart2");
+
+incExpChart = runGraph(
+  [
+    JSON.parse(localStorage.getItem("Income")),
+    JSON.parse(localStorage.getItem("Expense")),
+  ],
+  "incExpChart",
+  ["#22C55E", "#EF4444"]
+);
+
+//Event listener for chart buttons
+
+balanceChartBtn.addEventListener("click", function () {
+  balanceChartUI.classList.forEach((classFound) => {
+    if (classFound === "hidden") {
+      balanceChartUI.classList.remove("hidden");
+      incExpChartUI.classList.add("hidden");
+    }
+  });
+});
+
+incExpChartBtn.addEventListener("click", function () {
+  incExpChartUI.classList.forEach((classFound) => {
+    if (classFound === "hidden") {
+      incExpChartUI.classList.remove("hidden");
+      balanceChartUI.classList.add("hidden");
+    }
+  });
+});

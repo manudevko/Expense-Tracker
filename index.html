@@ -294,9 +294,9 @@
       </section>
 
       <!-- Graphic chart section -->
-      <section class="xl:w-6/12 mx-auto">
+      <section class="xl:w-6/12 mx-auto relative">
         <!-- Balance chart -->
-        <div class="mx-auto">
+        <div class="mx-auto balanceChartWrapper charts">
           <div
             class="header-title flex flex-row justify-center items-center gap-4 my-10"
           >
@@ -306,7 +306,7 @@
             </h2>
           </div>
           <div class="xl:w-6/12 mx-auto">
-            <canvas id="myChart"></canvas>
+            <canvas id="balanceDistChart"></canvas>
           </div>
           <div
             class="balance-legends flex flex-row justify-center text-white gap-x-10 mt-10"
@@ -317,7 +317,7 @@
           </div>
         </div>
         <!-- Expenses vs income chart -->
-        <div class="mx-auto hidden">
+        <div class="mx-auto incExpChartWrapper charts hidden">
           <div
             class="header-title flex flex-row justify-center items-center gap-4 mx-auto my-10"
           >
@@ -327,13 +327,13 @@
             </h2>
           </div>
           <div class="xl:w-6/12 mx-auto">
-            <canvas id="myChart2"></canvas>
+            <canvas id="incExpChart"></canvas>
           </div>
           <div
             class="balance-legends flex flex-row justify-center text-white gap-x-10 mt-10"
           >
-            <p><span class="bg-zelle px-8 mr-3 rounded"></span>Income</p>
-            <p><span class="bg-binance px-8 mr-3 rounded"></span>Expenses</p>
+            <p><span class="bg-green-500 px-8 mr-3 rounded"></span>Income</p>
+            <p><span class="bg-red-500 px-8 mr-3 rounded"></span>Expenses</p>
           </div>
         </div>
 
@@ -341,14 +341,14 @@
         <div class="flex flex-row justify-center gap-x-10 mt-8">
           <button
             href=""
-            class="balance-distribution bg-blue-500 flex flex-row gap-x-3 items-center px-4 py-2 rounded mt-4"
+            class="balance-distribution-btn bg-blue-500 flex flex-row gap-x-3 items-center px-4 py-2 rounded mt-4"
           >
             <i class="fa-solid fa-wallet" style="color: #ffffff"></i>
             <h3 class="text-md text-white">Balance distribution</h3>
           </button>
           <button
             href=""
-            class="balance-distribution bg-blue-500 flex flex-row gap-x-3 items-center px-4 py-2 rounded mt-4"
+            class="income-expense-btn bg-blue-500 flex flex-row gap-x-3 items-center px-4 py-2 rounded mt-4"
           >
             <i class="fa-solid fa-chart-line" style="color: #ffffff"></i>
             <h3 class="text-md text-white">Income vs Expenses</h3>
