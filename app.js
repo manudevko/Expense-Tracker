@@ -3,6 +3,8 @@ let zelleBalance;
 let binanceBalance;
 let cashBalance;
 let transHistory;
+let myChart;
+let myChart2;
 
 //Transaction wrapper
 
@@ -199,6 +201,13 @@ incButtonUI.addEventListener("click", function () {
     incPlatformUI.value
   );
 
+  //Re-renders the chart with new data
+  myChart.destroy();
+  myChart = runGraph([zelleBalance, binanceBalance, cashBalance], "myChart", [
+    "#7123D4",
+    "#F1BB13",
+    "#6a8649",
+  ]);
   incDetailsUI.value = "";
   incAmountUI.value = "";
   incDateUI.value = "";
@@ -295,3 +304,38 @@ const addEventToDeleteButtons = function () {
 
 //Add event listener to delete buttons
 addEventToDeleteButtons();
+
+//Chart JS code
+
+const runGraph = function (data, id, colors) {
+  const ctx = document.getElementById(id);
+
+  let myChart = new Chart(ctx, {
+    type: "pie",
+    data: {
+      labels: ["Zelle", "Binance", "Cash"],
+      datasets: [
+        {
+          data: data,
+          borderWidth: 1,
+          backgroundColor: colors,
+        },
+      ],
+    },
+    options: {
+      plugins: {
+        legend: {
+          display: false,
+        },
+      },
+    },
+  });
+  return myChart;
+};
+
+myChart = runGraph([zelleBalance, binanceBalance, cashBalance], "myChart", [
+  "#7123D4",
+  "#F1BB13",
+  "#6a8649",
+]);
+// myChart2 = runGraph(, "myChart2");

@@ -16,6 +16,19 @@
     <title>Expense Tracker</title>
     <link rel="stylesheet" href="styles.css" />
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              zelle: "#7123D4",
+              binance: "#F1BB13",
+              cash: "#6a8649",
+            },
+          },
+        },
+      };
+    </script>
   </head>
   <body class="bg-gray-900">
     <header>
@@ -28,235 +41,322 @@
         </h1>
       </div>
     </header>
-    <main>
-      <!-- Main section with the balance and transaction information -->
-      <section
-        class="w-11/12 xl:w-9/12 bg-gray-800 p-6 lg:p-14 rounded-2xl flex flex-col justify-center mx-auto mt-7 shadow-gray-700"
-      >
-        <article
-          class="flex flex-col lg:flex-row justify-between gap-x-36 gap-y-20 w-full"
+    <main class="flex flex-col gap-y-10 xl:flex-row items-start w-full">
+      <!--Main UI wrapper for balance, transaction information and forms-->
+      <section class="w-full xl:w-11/12">
+        <!-- Main section with the balance and transaction information -->
+        <div
+          class="w-10/12 bg-gray-800 p-6 lg:p-14 rounded-2xl flex flex-col justify-center mx-auto mt-7 shadow-gray-700"
         >
-          <!-- Balance wrapper -->
-          <div class="balance-wrapper flex flex-col gap-y-5 w-full">
-            <div
-              class="balance font-semibold flex flex-row w-full gap-3 items-center py-2 rounded text-white text-lg"
-            >
-              <i class="fa-solid fa-dollar text-green-500"></i>
-              <h2>Balance: <span class="balance-amount"></span></h2>
-            </div>
-            <hr />
-            <div
-              class="font-semibold text-lg text-white income-outcome flex flex-col gap-y-12"
-            >
+          <article
+            class="flex flex-col lg:flex-row justify-between gap-x-36 gap-y-20 w-full"
+          >
+            <!-- Balance wrapper -->
+            <div class="balance-wrapper flex flex-col gap-y-5 w-full">
               <div
-                class="zelle flex flex-row items-center justify-between gap-x-6"
+                class="balance font-semibold flex flex-row w-full gap-3 items-center py-2 rounded text-white text-lg"
               >
-                <i
-                  ><img
-                    width="30"
-                    height="30"
-                    src="assets/zelle.png"
-                    alt="zelle"
-                /></i>
-                <p><span class="zelle-amount"></span></p>
+                <i class="fa-solid fa-dollar text-green-500"></i>
+                <h2>Balance: <span class="balance-amount"></span></h2>
               </div>
+              <hr />
               <div
-                class="binance flex flex-row items-center justify-between gap-x-6"
+                class="font-semibold text-lg text-white income-outcome flex flex-col gap-y-12"
               >
-                <i
-                  ><img
-                    width="30"
-                    height="30"
-                    src="assets/binance.png"
-                    alt="binance"
-                /></i>
-                <p><span class="binance-amount"></span></p>
-              </div>
-              <div
-                class="cash flex flex-row items-center justify-between gap-x-6"
-              >
-                <i
-                  ><img width="30" height="30" src="assets/cash.png" alt="cash"
-                /></i>
-                <p><span class="cash-amount"></span></p>
+                <div
+                  class="zelle flex flex-row items-center justify-between gap-x-6"
+                >
+                  <i
+                    ><img
+                      width="30"
+                      height="30"
+                      src="assets/zelle.png"
+                      alt="zelle"
+                  /></i>
+                  <p><span class="zelle-amount"></span></p>
+                </div>
+                <div
+                  class="binance flex flex-row items-center justify-between gap-x-6"
+                >
+                  <i
+                    ><img
+                      width="30"
+                      height="30"
+                      src="assets/binance.png"
+                      alt="binance"
+                  /></i>
+                  <p><span class="binance-amount"></span></p>
+                </div>
+                <div
+                  class="cash flex flex-row items-center justify-between gap-x-6"
+                >
+                  <i
+                    ><img
+                      width="30"
+                      height="30"
+                      src="assets/cash.png"
+                      alt="cash"
+                  /></i>
+                  <p><span class="cash-amount"></span></p>
+                </div>
               </div>
             </div>
-          </div>
-          <!-- History wrapper -->
-          <div class="history flex flex-col gap-y-5 text-sm w-full">
+            <!-- History wrapper -->
+            <div class="history flex flex-col gap-y-5 text-sm w-full">
+              <div
+                class="history-header flex flex-row gap-3 items-center bg-transparent py-2 rounded"
+              >
+                <i class="fa-solid fa-clock-rotate-left text-blue-600"></i>
+                <h2 class="text-xl text-white font-semibold">
+                  Transaction history
+                </h2>
+              </div>
+              <hr />
+              <!-- Histories -->
+              <div
+                class="trans-wrapper flex flex-col gap-y-5 h-52 overflow-y-scroll pr-4"
+              ></div>
+            </div>
+          </article>
+        </div>
+        <!-- Add income and add expense forms -->
+        <div
+          class="flex flex-col xl:flex-row justify-center w-full lg:w-8/12 mx-auto gap-x-20 gap-y-10 mb-10"
+        >
+          <!-- Add income form -->
+          <article class="w-full text-center mt-7">
             <div
-              class="history-header flex flex-row gap-3 items-center bg-transparent py-2 rounded"
+              class="add-btn flex flex-col gap-y-6 justify-between items-center"
             >
-              <i class="fa-solid fa-clock-rotate-left text-blue-600"></i>
-              <h2 class="text-xl text-white font-semibold">
-                Transaction history
-              </h2>
+              <!-- Add income details -->
+              <div
+                class="relative w-2/4 xl:w-full flex flex-row gap-x-3 items-center"
+              >
+                <span class="absolute inset-y-0 left-0 flex items-center pl-2">
+                  <i
+                    class="fa-fw fa-solid fa-circle-info text-gray-400 info-circle"
+                  ></i>
+                </span>
+                <input
+                  class="income-details placeholder:text-gray-400 block bg-white w-full rounded-md py-2 pl-9 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm"
+                  type="text"
+                  name=""
+                  id=""
+                  placeholder="Enter income details"
+                />
+              </div>
+              <!-- Add income amount -->
+              <div
+                class="relative w-2/4 xl:w-full flex flex-row gap-x-3 items-center"
+              >
+                <span class="absolute inset-y-0 left-0 flex items-center pl-2">
+                  <i
+                    class="fa-fw fa-solid fa-dollar text-gray-400 info-circle"
+                  ></i>
+                </span>
+                <input
+                  class="income-amount placeholder:text-gray-400 block bg-white w-full rounded-md py-2 pl-9 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm"
+                  type="number"
+                  name=""
+                  id=""
+                  placeholder="Enter amount"
+                />
+              </div>
+              <!-- Add income date -->
+              <div
+                class="relative w-2/4 xl:w-full flex flex-row gap-x-3 items-center"
+              >
+                <span class="absolute inset-y-0 left-0 flex items-center pl-2">
+                  <i
+                    class="fa-fw fa-solid fa-calendar text-gray-400 info-circle"
+                  ></i>
+                </span>
+                <input
+                  class="income-date placeholder:text-gray-400 block bg-white w-full rounded-md py-2 pl-9 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm"
+                  type="date"
+                  name=""
+                  id=""
+                />
+              </div>
+              <!-- Add income platform -->
+              <div
+                class="relative w-2/4 xl:w-full flex flex-row gap-x-3 items-center"
+              >
+                <span class="absolute inset-y-0 left-0 flex items-center pl-2">
+                  <i
+                    class="fa-fw fa-solid fa-circle-exclamation text-gray-400 info-circle"
+                  ></i>
+                </span>
+                <select
+                  class="income-platform placeholder:text-gray-400 block bg-white w-full rounded-md py-2 pl-9 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm"
+                  name=""
+                  id=""
+                >
+                  <option value="Zelle">Zelle</option>
+                  <option value="Binance">Binance</option>
+                  <option value="Cash">Cash</option>
+                </select>
+              </div>
+              <!-- Add income button -->
+              <button
+                href=""
+                class="add-income bg-green-500 flex flex-row gap-x-3 items-center px-4 py-2 rounded mt-4"
+              >
+                <i class="fa-solid fa-plus" style="color: #ffffff"></i>
+                <h3 class="text-md text-white">Add income</h3>
+              </button>
             </div>
-            <hr />
-            <!-- Histories -->
+          </article>
+          <!-- Add expense form -->
+          <article class="w-full text-center mt-7">
             <div
-              class="trans-wrapper flex flex-col gap-y-5 h-64 overflow-y-scroll pr-4"
-            ></div>
-          </div>
-        </article>
+              class="add-btn flex flex-col gap-y-6 justify-between items-center"
+            >
+              <!-- Add expense details -->
+              <div
+                class="relative w-2/4 xl:w-full flex flex-row gap-x-3 items-center"
+              >
+                <span class="absolute inset-y-0 left-0 flex items-center pl-2">
+                  <i
+                    class="fa-fw fa-solid fa-circle-info text-gray-400 info-circle"
+                  ></i>
+                </span>
+                <input
+                  class="expense-details placeholder:text-gray-400 block bg-white w-full rounded-md py-2 pl-9 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm"
+                  type="text"
+                  name=""
+                  id=""
+                  placeholder="Enter expense details"
+                />
+              </div>
+              <!-- Add expense amount -->
+              <div
+                class="relative w-2/4 xl:w-full flex flex-row gap-x-3 items-center"
+              >
+                <span class="absolute inset-y-0 left-0 flex items-center pl-2">
+                  <i
+                    class="fa-fw fa-solid fa-dollar text-gray-400 info-circle"
+                  ></i>
+                </span>
+                <input
+                  class="expense-amount placeholder:text-gray-400 block bg-white w-full rounded-md py-2 pl-9 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm"
+                  type="number"
+                  name=""
+                  id=""
+                  placeholder="Enter amount"
+                />
+              </div>
+              <!-- Add expense date -->
+              <div
+                class="relative w-2/4 xl:w-full flex flex-row gap-x-3 items-center"
+              >
+                <span class="absolute inset-y-0 left-0 flex items-center pl-2">
+                  <i
+                    class="fa-fw fa-solid fa-calendar text-gray-400 info-circle"
+                  ></i>
+                </span>
+                <input
+                  class="expense-date placeholder:text-gray-400 block bg-white w-full rounded-md py-2 pl-9 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm"
+                  type="date"
+                  name=""
+                  id=""
+                />
+              </div>
+              <!-- Add expense platform -->
+              <div
+                class="relative w-2/4 xl:w-full flex flex-row gap-x-3 items-center"
+              >
+                <span class="absolute inset-y-0 left-0 flex items-center pl-2">
+                  <i
+                    class="fa-fw fa-solid fa-circle-exclamation text-gray-400 info-circle"
+                  ></i>
+                </span>
+                <select
+                  class="expense-platform placeholder:text-gray-400 block bg-white w-full rounded-md py-2 pl-9 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm"
+                  name=""
+                  id=""
+                >
+                  <option value="Zelle">Zelle</option>
+                  <option value="Binance">Binance</option>
+                  <option value="Cash">Cash</option>
+                </select>
+              </div>
+              <button
+                href=""
+                class="add-expense bg-red-500 flex flex-row gap-x-3 items-center px-4 py-2 rounded mt-4"
+              >
+                <i class="fa-solid fa-minus" style="color: #ffffff"></i>
+                <h3 class="text-md text-white">Add expense</h3>
+              </button>
+            </div>
+          </article>
+        </div>
       </section>
-      <!-- Add income and add expense forms -->
-      <section
-        class="flex flex-col xl:flex-row justify-center w-full lg:w-5/12 mx-auto gap-x-20 gap-y-10 mb-10"
-      >
-        <!-- Add income form -->
-        <article class="w-full text-center mt-7">
+
+      <!-- Graphic chart section -->
+      <section class="xl:w-6/12 mx-auto">
+        <!-- Balance chart -->
+        <div class="mx-auto">
           <div
-            class="add-btn flex flex-col gap-y-6 justify-between items-center"
+            class="header-title flex flex-row justify-center items-center gap-4 my-10"
           >
-            <!-- Add income details -->
-            <div class="relative w-3/4 flex flex-row gap-x-3 items-center">
-              <span class="absolute inset-y-0 left-0 flex items-center pl-2">
-                <i
-                  class="fa-fw fa-solid fa-circle-info text-gray-400 info-circle"
-                ></i>
-              </span>
-              <input
-                class="income-details placeholder:text-gray-400 block bg-white w-full rounded-md py-2 pl-9 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm"
-                type="text"
-                name=""
-                id=""
-                placeholder="Enter income details"
-              />
-            </div>
-            <!-- Add income amount -->
-            <div class="relative w-3/4 flex flex-row gap-x-3 items-center">
-              <span class="absolute inset-y-0 left-0 flex items-center pl-2">
-                <i
-                  class="fa-fw fa-solid fa-dollar text-gray-400 info-circle"
-                ></i>
-              </span>
-              <input
-                class="income-amount placeholder:text-gray-400 block bg-white w-full rounded-md py-2 pl-9 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm"
-                type="number"
-                name=""
-                id=""
-                placeholder="Enter amount"
-              />
-            </div>
-            <!-- Add income date -->
-            <div class="relative w-3/4 flex flex-row gap-x-3 items-center">
-              <span class="absolute inset-y-0 left-0 flex items-center pl-2">
-                <i
-                  class="fa-fw fa-solid fa-calendar text-gray-400 info-circle"
-                ></i>
-              </span>
-              <input
-                class="income-date placeholder:text-gray-400 block bg-white w-full rounded-md py-2 pl-9 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm"
-                type="date"
-                name=""
-                id=""
-              />
-            </div>
-            <!-- Add income platform -->
-            <div class="relative w-3/4 flex flex-row gap-x-3 items-center">
-              <span class="absolute inset-y-0 left-0 flex items-center pl-2">
-                <i
-                  class="fa-fw fa-solid fa-circle-exclamation text-gray-400 info-circle"
-                ></i>
-              </span>
-              <select
-                class="income-platform placeholder:text-gray-400 block bg-white w-full rounded-md py-2 pl-9 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm"
-                name=""
-                id=""
-              >
-                <option value="Zelle">Zelle</option>
-                <option value="Binance">Binance</option>
-                <option value="Cash">Cash</option>
-              </select>
-            </div>
-            <!-- Add income button -->
-            <button
-              href=""
-              class="add-income bg-green-500 flex flex-row gap-x-3 items-center px-4 py-2 rounded mt-4"
-            >
-              <i class="fa-solid fa-plus" style="color: #ffffff"></i>
-              <h3 class="text-md text-white">Add income</h3>
-            </button>
+            <i class="fa-solid fa-chart-pie text-white text-4xl"></i>
+            <h2 class="text-white text-3xl lg:text-4xl font-bold">
+              Balance distribution
+            </h2>
           </div>
-        </article>
-        <!-- Add expense form -->
-        <article class="w-full text-center mt-7">
+          <div class="xl:w-6/12 mx-auto">
+            <canvas id="myChart"></canvas>
+          </div>
           <div
-            class="add-btn flex flex-col gap-y-6 justify-between items-center"
+            class="balance-legends flex flex-row justify-center text-white gap-x-10 mt-10"
           >
-            <!-- Add expense details -->
-            <div class="relative w-3/4 flex flex-row gap-x-3 items-center">
-              <span class="absolute inset-y-0 left-0 flex items-center pl-2">
-                <i
-                  class="fa-fw fa-solid fa-circle-info text-gray-400 info-circle"
-                ></i>
-              </span>
-              <input
-                class="expense-details placeholder:text-gray-400 block bg-white w-full rounded-md py-2 pl-9 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm"
-                type="text"
-                name=""
-                id=""
-                placeholder="Enter expense details"
-              />
-            </div>
-            <!-- Add expense amount -->
-            <div class="relative w-3/4 flex flex-row gap-x-3 items-center">
-              <span class="absolute inset-y-0 left-0 flex items-center pl-2">
-                <i
-                  class="fa-fw fa-solid fa-dollar text-gray-400 info-circle"
-                ></i>
-              </span>
-              <input
-                class="expense-amount placeholder:text-gray-400 block bg-white w-full rounded-md py-2 pl-9 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm"
-                type="number"
-                name=""
-                id=""
-                placeholder="Enter amount"
-              />
-            </div>
-            <!-- Add expense date -->
-            <div class="relative w-3/4 flex flex-row gap-x-3 items-center">
-              <span class="absolute inset-y-0 left-0 flex items-center pl-2">
-                <i
-                  class="fa-fw fa-solid fa-calendar text-gray-400 info-circle"
-                ></i>
-              </span>
-              <input
-                class="expense-date placeholder:text-gray-400 block bg-white w-full rounded-md py-2 pl-9 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm"
-                type="date"
-                name=""
-                id=""
-              />
-            </div>
-            <!-- Add expense platform -->
-            <div class="relative w-3/4 flex flex-row gap-x-3 items-center">
-              <span class="absolute inset-y-0 left-0 flex items-center pl-2">
-                <i
-                  class="fa-fw fa-solid fa-circle-exclamation text-gray-400 info-circle"
-                ></i>
-              </span>
-              <select
-                class="expense-platform placeholder:text-gray-400 block bg-white w-full rounded-md py-2 pl-9 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm"
-                name=""
-                id=""
-              >
-                <option value="Zelle">Zelle</option>
-                <option value="Binance">Binance</option>
-                <option value="Cash">Cash</option>
-              </select>
-            </div>
-            <button
-              href=""
-              class="add-expense bg-red-500 flex flex-row gap-x-3 items-center px-4 py-2 rounded mt-4"
-            >
-              <i class="fa-solid fa-minus" style="color: #ffffff"></i>
-              <h3 class="text-md text-white">Add expense</h3>
-            </button>
+            <p><span class="bg-zelle px-8 mr-3 rounded"></span>Zelle</p>
+            <p><span class="bg-binance px-8 mr-3 rounded"></span>Binance</p>
+            <p><span class="bg-cash px-8 mr-3 rounded"></span>Cash</p>
           </div>
-        </article>
+        </div>
+        <!-- Expenses vs income chart -->
+        <div class="mx-auto hidden">
+          <div
+            class="header-title flex flex-row justify-center items-center gap-4 mx-auto my-10"
+          >
+            <i class="fa-solid fa-chart-pie text-white text-4xl"></i>
+            <h2 class="text-white text-3xl lg:text-4xl font-bold">
+              Income vs expenses
+            </h2>
+          </div>
+          <div class="xl:w-6/12 mx-auto">
+            <canvas id="myChart2"></canvas>
+          </div>
+          <div
+            class="balance-legends flex flex-row justify-center text-white gap-x-10 mt-10"
+          >
+            <p><span class="bg-zelle px-8 mr-3 rounded"></span>Income</p>
+            <p><span class="bg-binance px-8 mr-3 rounded"></span>Expenses</p>
+          </div>
+        </div>
+
+        <!-- Chart buttons -->
+        <div class="flex flex-row justify-center gap-x-10 mt-8">
+          <button
+            href=""
+            class="balance-distribution bg-blue-500 flex flex-row gap-x-3 items-center px-4 py-2 rounded mt-4"
+          >
+            <i class="fa-solid fa-wallet" style="color: #ffffff"></i>
+            <h3 class="text-md text-white">Balance distribution</h3>
+          </button>
+          <button
+            href=""
+            class="balance-distribution bg-blue-500 flex flex-row gap-x-3 items-center px-4 py-2 rounded mt-4"
+          >
+            <i class="fa-solid fa-chart-line" style="color: #ffffff"></i>
+            <h3 class="text-md text-white">Income vs Expenses</h3>
+          </button>
+        </div>
       </section>
     </main>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="app.js"></script>
   </body>
 </html>
