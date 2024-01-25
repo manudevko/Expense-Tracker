@@ -294,30 +294,40 @@
       </section>
 
       <!-- Graphic chart section -->
-      <section class="xl:w-6/12 mx-auto relative">
+      <section class="w-8/12 xl:w-6/12 mx-auto mb-10">
         <!-- Balance chart -->
-        <div class="mx-auto balanceChartWrapper charts">
+        <div
+          class="mx-auto flex flex-col justify-center balanceChartWrapper charts"
+        >
           <div
-            class="header-title flex flex-row justify-center items-center gap-4 my-10"
+            class="mx-auto header-title flex flex-row items-center gap-4 my-10"
           >
-            <i class="fa-solid fa-chart-pie text-white text-4xl"></i>
-            <h2 class="text-white text-3xl lg:text-4xl font-bold">
+            <i
+              class="fa-solid fa-chart-pie text-white text-2xl lg:text-4xl"
+            ></i>
+            <h2 class="text-white text-2xl lg:text-4xl font-bold">
               Balance distribution
             </h2>
           </div>
-          <div class="xl:w-6/12 mx-auto">
+          <div class="xl:w-6/12 w-10/12 mx-auto px-auto">
             <canvas id="balanceDistChart"></canvas>
           </div>
           <div
-            class="balance-legends flex flex-row justify-center text-white gap-x-10 mt-10"
+            class="mx-auto balance-legends flex flex-col items-center xl:flex-row justify-center text-white xl:gap-x-10 gap-y-2 mt-10"
           >
-            <p><span class="bg-zelle px-8 mr-3 rounded"></span>Zelle</p>
-            <p><span class="bg-binance px-8 mr-3 rounded"></span>Binance</p>
-            <p><span class="bg-cash px-8 mr-3 rounded"></span>Cash</p>
+            <p class="w-full">
+              <span class="bg-zelle px-8 mr-3 rounded"></span>Zelle
+            </p>
+            <p class="w-full">
+              <span class="bg-binance px-8 mr-3 rounded"></span>Binance
+            </p>
+            <p class="w-full">
+              <span class="bg-cash px-8 mr-3 rounded"></span>Cash
+            </p>
           </div>
         </div>
         <!-- Expenses vs income chart -->
-        <div class="mx-auto incExpChartWrapper charts hidden">
+        <div class="mx-auto flex flex-col incExpChartWrapper charts hidden">
           <div
             class="header-title flex flex-row justify-center items-center gap-4 mx-auto my-10"
           >
@@ -326,7 +336,7 @@
               Income vs expenses
             </h2>
           </div>
-          <div class="xl:w-6/12 mx-auto">
+          <div class="xl:w-6/12 w-10/12 mx-auto px-auto">
             <canvas id="incExpChart"></canvas>
           </div>
           <div
@@ -338,17 +348,19 @@
         </div>
 
         <!-- Chart buttons -->
-        <div class="flex flex-row justify-center gap-x-10 mt-8">
+        <div
+          class="flex flex-col xl:flex-row justify-center mt-8 w-full xl:mx-auto xl:gap-x-10"
+        >
           <button
             href=""
-            class="balance-distribution-btn bg-blue-500 flex flex-row gap-x-3 items-center px-4 py-2 rounded mt-4"
+            class="mx-auto xl:mx-0 w-8/12 xl:w-4/12 balance-distribution-btn bg-blue-500 flex flex-row gap-x-3 justify-center items-center px-2 py-1 xl:px-4 xl:py-2 rounded mt-4"
           >
             <i class="fa-solid fa-wallet" style="color: #ffffff"></i>
             <h3 class="text-md text-white">Balance distribution</h3>
           </button>
           <button
             href=""
-            class="income-expense-btn bg-blue-500 flex flex-row gap-x-3 items-center px-4 py-2 rounded mt-4"
+            class="mx-auto xl:mx-0 w-8/12 xl:w-4/12 income-expense-btn bg-blue-500 flex flex-row gap-x-3 justify-center items-center px-2 py-1 xl:px-4 xl:py-2 rounded mt-4"
           >
             <i class="fa-solid fa-chart-line" style="color: #ffffff"></i>
             <h3 class="text-md text-white">Income vs Expenses</h3>

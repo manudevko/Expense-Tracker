@@ -115,9 +115,22 @@ loadLocalStorage();
 
 const loadHistory = function () {
   for (i = 0; i < transHistory.length; i++) {
+    //Checks for transaction history in localstorage to be loaded and added to the transaction history.
     const loadedTransaction = document.createElement("div");
     loadedTransaction.innerHTML = transHistory[i].Transaction;
     transactionUI.appendChild(loadedTransaction);
+    //If income and expense are not in the localstorage yet it
+    //checks for income and expenses in localstorage to be loaded and
+    //added to the income / expense variables in order to be able to display them in the first chart.
+    if (!localStorage.getItem("Income") && !localStorage.getItem("Expense")) {
+      switch (transHistory[i].Type) {
+        case "income":
+          income += transHistory[i].Amount;
+          break;
+        case "expense":
+          expense += transHistory[i].Amount;
+      }
+    }
   }
 };
 
@@ -212,6 +225,10 @@ const addExpense = function (details, amount, date, platform) {
 //Event listener for the add income form.
 
 incButtonUI.addEventListener("click", function () {
+  if (incDetailsUI.value.length > 15) {
+    alert("Please enter a maximum of 15 characters for the details");
+    return;
+  }
   addIncome(
     incDetailsUI.value,
     incAmountUI.value,
@@ -259,6 +276,15 @@ expButtonUI.addEventListener("click", function () {
     ["#7123D4", "#F1BB13", "#6a8649"],
     "balanceDistChart",
     ["Zelle", "Binance", "Cash"]
+  );
+
+  //Updates the income and expenses chart
+
+  incExpChart = updateChart(
+    incExpChart,
+    [income, expense],
+    ["#22C55E", "#EF4444"],
+    "incExpChart"
   );
 
   expDetailsUI.value = "";
