@@ -125,12 +125,10 @@
         >
           <!-- Add income form -->
           <article class="w-full text-center mt-7">
-            <div
-              class="add-btn flex flex-col gap-y-6 justify-between items-center"
-            >
+            <div class="flex flex-col gap-y-6 justify-between items-center">
               <!-- Add income details -->
               <div
-                class="relative w-2/4 xl:w-full flex flex-row gap-x-3 items-center"
+                class="relative w-3/4 xl:w-full flex flex-row gap-x-3 items-center"
               >
                 <span class="absolute inset-y-0 left-0 flex items-center pl-2">
                   <i
@@ -147,7 +145,7 @@
               </div>
               <!-- Add income amount -->
               <div
-                class="relative w-2/4 xl:w-full flex flex-row gap-x-3 items-center"
+                class="relative w-3/4 xl:w-full flex flex-row gap-x-3 items-center"
               >
                 <span class="absolute inset-y-0 left-0 flex items-center pl-2">
                   <i
@@ -164,7 +162,7 @@
               </div>
               <!-- Add income date -->
               <div
-                class="relative w-2/4 xl:w-full flex flex-row gap-x-3 items-center"
+                class="relative w-3/4 xl:w-full flex flex-row gap-x-3 items-center"
               >
                 <span class="absolute inset-y-0 left-0 flex items-center pl-2">
                   <i
@@ -180,7 +178,7 @@
               </div>
               <!-- Add income platform -->
               <div
-                class="relative w-2/4 xl:w-full flex flex-row gap-x-3 items-center"
+                class="relative w-3/4 xl:w-full flex flex-row gap-x-3 items-center"
               >
                 <span class="absolute inset-y-0 left-0 flex items-center pl-2">
                   <i
@@ -214,7 +212,7 @@
             >
               <!-- Add expense details -->
               <div
-                class="relative w-2/4 xl:w-full flex flex-row gap-x-3 items-center"
+                class="relative w-3/4 xl:w-full flex flex-row gap-x-3 items-center"
               >
                 <span class="absolute inset-y-0 left-0 flex items-center pl-2">
                   <i
@@ -231,7 +229,7 @@
               </div>
               <!-- Add expense amount -->
               <div
-                class="relative w-2/4 xl:w-full flex flex-row gap-x-3 items-center"
+                class="relative w-3/4 xl:w-full flex flex-row gap-x-3 items-center"
               >
                 <span class="absolute inset-y-0 left-0 flex items-center pl-2">
                   <i
@@ -248,7 +246,7 @@
               </div>
               <!-- Add expense date -->
               <div
-                class="relative w-2/4 xl:w-full flex flex-row gap-x-3 items-center"
+                class="relative w-3/4 xl:w-full flex flex-row gap-x-3 items-center"
               >
                 <span class="absolute inset-y-0 left-0 flex items-center pl-2">
                   <i
@@ -264,7 +262,7 @@
               </div>
               <!-- Add expense platform -->
               <div
-                class="relative w-2/4 xl:w-full flex flex-row gap-x-3 items-center"
+                class="relative w-3/4 xl:w-full flex flex-row gap-x-3 items-center"
               >
                 <span class="absolute inset-y-0 left-0 flex items-center pl-2">
                   <i
@@ -302,10 +300,8 @@
           <div
             class="mx-auto header-title flex flex-row items-center gap-4 my-10"
           >
-            <i
-              class="fa-solid fa-chart-pie text-white text-2xl lg:text-4xl"
-            ></i>
-            <h2 class="text-white text-2xl lg:text-4xl font-bold">
+            <i class="fa-solid fa-chart-pie text-white text-xl lg:text-4xl"></i>
+            <h2 class="text-white text-xl lg:text-4xl font-bold">
               Balance distribution
             </h2>
           </div>
@@ -331,8 +327,8 @@
           <div
             class="header-title flex flex-row justify-center items-center gap-4 mx-auto my-10"
           >
-            <i class="fa-solid fa-chart-pie text-white text-4xl"></i>
-            <h2 class="text-white text-3xl lg:text-4xl font-bold">
+            <i class="fa-solid fa-chart-pie text-white text-xl lg:text-4xl"></i>
+            <h2 class="text-white text-xl lg:text-4xl font-bold">
               Income vs expenses
             </h2>
           </div>
@@ -340,27 +336,31 @@
             <canvas id="incExpChart"></canvas>
           </div>
           <div
-            class="balance-legends flex flex-row justify-center text-white gap-x-10 mt-10"
+            class="mx-auto balance-legends flex flex-col xl:flex-row justify-center text-white xl:gap-x-10 gap-y-2 mt-10"
           >
-            <p><span class="bg-green-500 px-8 mr-3 rounded"></span>Income</p>
-            <p><span class="bg-red-500 px-8 mr-3 rounded"></span>Expenses</p>
+            <p class="w-full">
+              <span class="bg-green-500 px-8 mr-3 rounded"></span>Income
+            </p>
+            <p class="w-full">
+              <span class="bg-red-500 px-8 mr-3 rounded"></span>Expenses
+            </p>
           </div>
         </div>
 
         <!-- Chart buttons -->
         <div
-          class="flex flex-col xl:flex-row justify-center mt-8 w-full xl:mx-auto xl:gap-x-10"
+          class="flex flex-col xl:flex-row justify-center mt-14 w-full xl:mx-auto xl:gap-x-10 gap-y-6"
         >
           <button
             href=""
-            class="mx-auto xl:mx-0 w-8/12 xl:w-4/12 balance-distribution-btn bg-blue-500 flex flex-row gap-x-3 justify-center items-center px-2 py-1 xl:px-4 xl:py-2 rounded mt-4"
+            class="mx-auto xl:mx-0 w-10/12 xl:w-4/12 balance-distribution-btn bg-blue-500 flex flex-row gap-x-3 justify-center items-center px-2 py-1 xl:px-4 xl:py-2 rounded"
           >
             <i class="fa-solid fa-wallet" style="color: #ffffff"></i>
             <h3 class="text-md text-white">Balance distribution</h3>
           </button>
           <button
             href=""
-            class="mx-auto xl:mx-0 w-8/12 xl:w-4/12 income-expense-btn bg-blue-500 flex flex-row gap-x-3 justify-center items-center px-2 py-1 xl:px-4 xl:py-2 rounded mt-4"
+            class="mx-auto xl:mx-0 w-10/12 xl:w-4/12 income-expense-btn bg-blue-500 flex flex-row gap-x-3 justify-center items-center px-2 py-1 xl:px-4 xl:py-2 rounded"
           >
             <i class="fa-solid fa-chart-line" style="color: #ffffff"></i>
             <h3 class="text-md text-white">Income vs Expenses</h3>
