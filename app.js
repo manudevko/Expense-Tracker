@@ -132,6 +132,8 @@ const loadHistory = function () {
       }
     }
   }
+  localStorage.setItem("Income", JSON.stringify(income));
+  localStorage.setItem("Expense", JSON.stringify(expense));
 };
 
 loadHistory();
